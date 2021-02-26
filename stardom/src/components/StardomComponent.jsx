@@ -20,15 +20,29 @@ export default class StardomComponent extends Component {
         };
     }
 
+    deleteProStar(index){
+
+        //remove the clicked prostar
+        let filteredArray = this.state.prostarList;
+        filteredArray.splice(index,1);
+        let filteredIndex = this.state.noOfStarsList;
+        filteredIndex.splice(index,1);
+        this.setState({
+            prostarList: filteredArray,
+            noOfStarsList :filteredIndex
+        });
+        
+    }
+
     //rendering all prostars in the list
     renderProStars =() =>{
          const starsList=this.state.prostarList;
-         const stars=starsList.map(star=>{         
+         const stars=starsList.map((star,index)=>{         
             return  <tr key={star.id}>
                         <td><img src={star.pictureUrl} alt="picture"/></td>
                         <td>{star.name}</td>
                         <td>{star.popularity}</td>
-                        <td><button>Delete</button></td>
+                        <td><button onClick={()=>this.deleteProStar(index)}>Delete</button></td>
                     </tr>;
         });
         return stars;
