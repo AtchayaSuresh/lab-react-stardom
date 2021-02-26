@@ -6,15 +6,18 @@ export default class StardomComponent extends Component {
     constructor(){
         super();
         this.state ={
-            prostars:{
-                prostar},
-            noOfStars:5
+            prostarList:[
+                prostar[0],prostar[1],prostar[2],prostar[3],prostar[4]
+            ],
+            noOfStarsList:[
+                0,1,2,3,4
+            ]
         };
     }
 
     renderProStars =() =>{
-         const stars=prostar.map((star,index)=>{         
-             if(index<this.state.noOfStars)
+         const starsList=this.state.prostarList;
+         const stars=starsList.map(star=>{         
             return  <tr key={star.id}>
                         <td><img src={star.pictureUrl} alt="picture"/></td>
                         <td>{star.name}</td>
@@ -24,10 +27,21 @@ export default class StardomComponent extends Component {
         });
         return stars;
     }
+
+    addProStar= ()=>{
+        var randomProStar=Math.floor(Math.random()*prostar.length);
+        while(this.state.noOfStarsList.includes(randomProStar))
+            randomProStar=Math.floor(Math.random()*prostar.length)
+        this.setState({
+            noOfStarsList:this.state.noOfStarsList.concat(randomProStar),
+            prostarList:this.state.prostarList.concat(prostar[randomProStar])
+        });
+    }
     render() {
         return (
             <div className='header-container'>
                 <h1>ProStars</h1>
+                <button onClick={this.addProStar} className='random-prostar'>Get Random Contact</button>
                 <div className='table-container'>
                     <table>
                         <thead>

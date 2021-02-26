@@ -32,3 +32,10 @@ td,th{
     background-color: aquamarine;
     padding: 20px;
 }
+
+.random-prostar{
+    background-color: blue;
+    color:white;
+    border-radius: 20px;
+    padding: 5px;
+}
