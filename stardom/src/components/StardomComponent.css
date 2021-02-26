@@ -33,9 +33,13 @@ td,th{
     padding: 20px;
 }
 
-.random-prostar{
+button{
     background-color: blue;
     color:white;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 5px;
+}
+
+.black-button{
+    background-color: black;
 }

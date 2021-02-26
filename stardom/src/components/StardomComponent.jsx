@@ -11,7 +11,8 @@ export default class StardomComponent extends Component {
             ],
             noOfStarsList:[
                 0,1,2,3,4
-            ]
+            ],
+            sortedNameWise:false
         };
     }
 
@@ -37,11 +38,27 @@ export default class StardomComponent extends Component {
             prostarList:this.state.prostarList.concat(prostar[randomProStar])
         });
     }
+
+    sortByName =() =>{
+       var mapStars= this.state.prostarList.sort((star1,star2)=>{
+           var name1=star1.name.toLowerCase(),name2=star2.name.toLowerCase();
+           if(name1>name2)
+            return 1;
+           else if(name1<name2)
+            return -1;
+           return 0;
+       });
+       this.setState({
+           sortedNameWise:true
+       });
+       return mapStars;
+    }
     render() {
         return (
             <div className='header-container'>
                 <h1>ProStars</h1>
-                <button onClick={this.addProStar} className='random-prostar'>Get Random Contact</button>
+                <button onClick={this.addProStar}>Get Random Contact</button>
+                <button onClick={this.sortByName} className='black-button'>Sort By Name</button>
                 <div className='table-container'>
                     <table>
                         <thead>
