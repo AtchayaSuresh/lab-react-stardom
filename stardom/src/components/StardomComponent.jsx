@@ -6,16 +6,21 @@ export default class StardomComponent extends Component {
     constructor(){
         super();
         this.state ={
+            //list of prostars
             prostarList:[
                 prostar[0],prostar[1],prostar[2],prostar[3],prostar[4]
             ],
+            //index of prostars in the initial list for adding non-repeated prostars
             noOfStarsList:[
                 0,1,2,3,4
             ],
-            sortedNameWise:false
+
+            sortedNameWise:false,
+            sortedPopularityWise:false
         };
     }
 
+    //rendering all prostars in the list
     renderProStars =() =>{
          const starsList=this.state.prostarList;
          const stars=starsList.map(star=>{         
@@ -30,9 +35,12 @@ export default class StardomComponent extends Component {
     }
 
     addProStar= ()=>{
+        //generating random prostars
         var randomProStar=Math.floor(Math.random()*prostar.length);
         while(this.state.noOfStarsList.includes(randomProStar))
-            randomProStar=Math.floor(Math.random()*prostar.length)
+            randomProStar=Math.floor(Math.random()*prostar.length);
+
+        //adding prostars to list
         this.setState({
             noOfStarsList:this.state.noOfStarsList.concat(randomProStar),
             prostarList:this.state.prostarList.concat(prostar[randomProStar])
@@ -40,7 +48,9 @@ export default class StardomComponent extends Component {
     }
 
     sortByName =() =>{
-       var mapStars= this.state.prostarList.sort((star1,star2)=>{
+
+        //sort prostars by name
+       var sortedStars= this.state.prostarList.sort((star1,star2)=>{
            var name1=star1.name.toLowerCase(),name2=star2.name.toLowerCase();
            if(name1>name2)
             return 1;
@@ -48,17 +58,39 @@ export default class StardomComponent extends Component {
             return -1;
            return 0;
        });
+       //set state as sortedByName
        this.setState({
            sortedNameWise:true
        });
-       return mapStars;
+       return sortedStars;
     }
+
+    sortByPopularity =() =>{
+
+        //sort prostars by Popularity
+        var sortedPopularity= this.state.prostarList.sort((star1,star2)=>{
+            if(star1.popularity>star2.popularity)
+             return -1;
+            else if(star1.popularity<star2.popularity)
+             return 1;
+            return 0;
+        });
+
+        //set state as sortedByPopularity
+        this.setState({
+            sortedPopularityWise:true
+        });
+        return sortedPopularity;
+     }
+
+
     render() {
         return (
             <div className='header-container'>
                 <h1>ProStars</h1>
                 <button onClick={this.addProStar}>Get Random Contact</button>
                 <button onClick={this.sortByName} className='black-button'>Sort By Name</button>
+                <button onClick={this.sortByPopularity}>Sort By Popularity</button>
                 <div className='table-container'>
                     <table>
                         <thead>
